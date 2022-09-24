@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const TugasPertemuan2());
+void main() => runApp(TugasPertemuan3());
 
-class TugasPertemuan2 extends StatelessWidget {
-  const TugasPertemuan2({Key? key}) : super(key: key);
+class TugasPertemuan3 extends StatelessWidget {
+  final text = [
+    'Frankie de Jong menjadi idola baru publik Camp Nou',
+    'Robert Lewandowski topskor laliga',
+  ];
+
+  final gambar = [
+    'gambar1.jpg',
+    'gambar2.jpeg',
+  ];
+
+  final tanggal = [
+    'Malang, 24 September 2022',
+    'Malang, 24 September 2022',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,62 +25,28 @@ class TugasPertemuan2 extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text(
-            "MyApp",
+            "TugasPertemuan3",
           ),
           backgroundColor: Colors.redAccent,
         ),
         body: Column(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
-            Navbar(),
+          children: <Widget>[
             header(),
-            Expanded(child: Scroll()),
+            Navbar(),
+            Expanded(
+                child: ListView.builder(
+              itemCount: text.length,
+              itemBuilder: (context, index) {
+                return beritaKecil(index);
+              },
+            ))
           ],
         ),
       ),
     );
   }
-}
 
-class Scroll extends StatelessWidget {
-  const Scroll({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints viewportConstraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: viewportConstraints.maxHeight,
-              ),
-              child: IntrinsicHeight(
-                child: Column(
-                  children: const <Widget>[
-                    beritaKecil(),
-                    beritaKecil(),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class beritaKecil extends StatelessWidget {
-  const beritaKecil({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  beritaKecil(int index) {
     return Container(
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
       decoration: BoxDecoration(
@@ -78,13 +58,12 @@ class beritaKecil extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Image.asset("images/gambar1.jpg"),
+                child: Image.asset('/images/' + gambar[index]),
               ),
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(16, 0, 0, 16),
-                  child: const Text(
-                      "Frankie de Jong menjadi idola baru publik Camp Nou"),
+                  child: Text(text[index]),
                 ),
               ),
             ],
@@ -97,21 +76,14 @@ class beritaKecil extends StatelessWidget {
                 top: BorderSide(width: 1, color: Colors.grey),
               ),
             ),
-            child: const Text("Sabtu, 10 September 2022"),
+            child: Text(tanggal[index]),
           )
         ],
       ),
     );
   }
-}
 
-class header extends StatelessWidget {
-  const header({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  header() {
     return Container(
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 20),
       decoration: BoxDecoration(
@@ -154,31 +126,24 @@ class header extends StatelessWidget {
   }
 }
 
-class Navbar extends StatelessWidget {
-  const Navbar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: const [
-          Text(
-            "BERITA TERBARU",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+Navbar() {
+  return Container(
+    margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: const [
+        Text(
+          "BERITA TERBARU",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            "PERTANDINGAN HARI INI",
-            style: TextStyle(fontSize: 16),
-          )
-        ],
-      ),
-    );
-  }
+        ),
+        Text(
+          "PERTANDINGAN HARI INI",
+          style: TextStyle(fontSize: 16),
+        )
+      ],
+    ),
+  );
 }
